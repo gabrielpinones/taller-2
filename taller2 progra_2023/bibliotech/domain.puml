@@ -1,0 +1,43 @@
+@startuml
+left to right direction
+skin rose
+
+
+class Libro {
+    - isbn : String
+    -titulo : String
+    -autor : String
+    -categoria : String
+    -estrellas_total : double
+    - num_Calificacion : Integer
+    - validar : boolean
+}
+
+
+class Socio {
+    -nombre : String
+    -apellido :String
+    -correoElectronico :String
+    -numeroDeSocio : int
+    -contrasenia : String
+    -libroEnPrestamo : Libro[]
+}
+
+
+class Biblioteca {
+    -Socio[] : socios
+    -Libro[] : libros
+    -Socio: socio
+}
+
+
+Biblioteca --"0.." Libro
+Biblioteca --"1..." Socio
+Socio -- "0..5" Libro : prestamo
+note top of Biblioteca
+    esta es una nota indicando que hay una clase utils cuya funcion es validar datos
+endnote
+
+
+
+@enduml

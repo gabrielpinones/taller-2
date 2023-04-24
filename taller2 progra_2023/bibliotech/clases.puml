@@ -1,0 +1,92 @@
+@startuml
+left to right direction
+skin rose
+class Libro {
+    -isbn: String
+    -titulo: String
+    -autor: String
+    -categoria: String
+    -calificacion: Double
+    -num_Calificacion: Integer
+    -estrellasTotal: Double
+
+    +Libro(isbn: String, titulo: String, autor: String, categoria: String)
+    +getIsbn(): String
+    +getTitulo(): String
+    +getAutor(): String
+    +getCategoria(): String
+    +getCalificacion(): Double
+    +setCalificacion(calificacion: Double): void
+    +getNum_Calificacion(): Integer
+    +setNum_Calificacion(num_Calificacion: Integer): void
+    +getEstrellasTotal(): Double
+    +setEstrellasTotal(estrellasTotal: Double): void
+}
+
+class Socio {
+    -static NUMERO_LIBROS_MAXIMO : int = 5
+    -nombre : String
+    -apellido : String
+    -correoElectronico : String
+    -numeroDeSocio : int
+    -contrasenia : String
+    -librosEnPrestamo : Libro[] = new Libro[0]
+
+    +Socio(nombre: String, apellido: String, correoElectronico: String, numeroDeSocio: int, contrasenia: String)
+    +getNombre() : String
+    +getApellido() : String
+    +getNombreCompleto() : String
+    +getCorreoElectronico() : String
+    +setCorreoElectronico(correoElectronico: String) : void
+    +getNumeroDeSocio() : int
+    +getContrasenia() : String
+    +setContrasenia(contrasenia: String) : void
+    +agregarLibro(libro: Libro) : void
+}
+
+class Sistema {
+  - static final GSON: Gson
+  - socios: Socio[]
+  - libros: Libro[]
+  - socio: Socio
+
+  + Sistema()
+  + iniciarSession(numeroDeSocio: int, contrasenia: String): void
+  + cerrarSession(): void
+  + realizarPrestamoLibro(isbn: String): void
+  + obtegerCatalogoLibros(): String
+  + buscarLibros: Libro[]
+  - cargarInformacion() : void
+  - guardarInformacion()
+  +  obtenerDatosSocioLogeado(): void
+  + eliminarLibro(String isbn): Libro[]
+  + getSocios(): Socio[]
+  + setSocios(socios: Socio[]): void
+  + setSocio(socio: Socio): void
+  + getSocio(): Socio
+}
+class Utils {
+    -EMAIL_PATTERN: Pattern
+    -isbn_Pattern: Pattern
+    -nombre_Pattern: Pattern
+    -apellido_Pattern: Pattern
+    -numeroSocio_Pattern: Pattern
+
+    +Utils()
+    +append(theStaticArray: T[], theObject: T): T[]
+    +validarEmail(email: String): void
+    +validarContrasenia(contrasenia: String): void
+    +validarIsbn(isbn: String): void
+    +validarNombre(nombre: String): void
+    +validarApellido(apellido: String): void
+    +validarNumeroSocio(numeroDeSocio: int): void
+}
+
+Sistema *-- "0..*" Socio : contiene
+Sistema *-- Libro : contiene
+Socio "1" -- "1..5" Libro : posee
+Sistema *.. Utils
+
+
+
+@enduml
